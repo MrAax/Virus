@@ -1,0 +1,17 @@
+How to use this batch file
+
+1) install "bat to exe converter" on your computer
+2) Run bat to exe converter.
+3) On top right cornet, click browse button and add the batch file
+4) select following 
+	- visible application
+	- tekporary directory
+	- Delete on exit
+	- add administrator manifest (checked)
+	- overwrite existing files (checked) 
+	- compress the exe using UPX (optional)
+	- architecture depends on your system
+5) Now go to the include tab.
+6) Add two files included in download archive
+7) Click on compile
+8) enjoy

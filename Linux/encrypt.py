@@ -15,7 +15,7 @@ def encrypt():
     files = []
 
     for file in os.listdir():
-        if file == "encrypt.py" or file == "decrypt.py" or file == "index.py" or file == "index.html" or file == "find.py" or file == "thekey.key" or file == "opratingSys.txt":
+        if file == "encrypt.py" or file == "decrypt.py" or file == "creatList.py" or file == "index.html" or file == "find.py" or file == "thekey.key" or file == "opratingSys.txt":
             continue
         if os.path.isfile(file):
             files.append(file)

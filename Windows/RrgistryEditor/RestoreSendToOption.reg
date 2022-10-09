@@ -1,0 +1,5 @@
+
+Windows Registry Editor Version 5.00
+; Created by 00M
+[HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo]
+@="{7BA4C740-9E81-11CF-99D3-00AA004AE837}"

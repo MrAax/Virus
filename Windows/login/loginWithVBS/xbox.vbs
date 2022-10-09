@@ -1,0 +1,10 @@
+
+X=MsgBox("Incorrect Username or Password ", 0+64,"Error")
+X=MsgBox("Incorrect Username or Password ", 1+64,"Error")
+X=MsgBox("Incorrect Username or Password ", 2+64,"Error")
+X=MsgBox("Incorrect Username or Password ", 3+64,"Error")
+X=MsgBox("Incorrect Username or Password ", 0+16,"Error")
+X=MsgBox("Incorrect Username or Password ", 1+16,"Error")
+X=MsgBox("Incorrect Username or Password ", 2+16,"Error")
+X=MsgBox("Incorrect Username or Password ", 3+16,"Error")
+X=MsgBox("Incorrect Username or Password ", 4+64,"Error")

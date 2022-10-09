@@ -1,0 +1,1868 @@
+@echo Starting up...
+@echo off
+setlocal EnableDelayedExpansion
+set "tab=	"
+for /l %%a in (1,1,1000) do set "bck=!bck!"
+set bg=0
+set tx=7
+set bgmen=7
+set txmen=0
+set bgsel=8
+set txsel=7
+set focus=Main  
+if not "%note%"=="" goto viewnote
+cls
+bg cursor 0
+:main_interface
+if "%viewingnote%"=="true" goto checkpage
+if "%editingnote%"=="true" goto mousenote
+if "%demo%"=="true" set demo=
+if "%noted%"=="exit" goto mousenote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo.                                                                     
+Echo. To begin, click file and then New note.                                 
+Echo. If you want to continue your previous work,                                   
+Echo. click file and then Load note.                                                
+Echo.                                                                               
+Echo.                                                                       
+Echo.                                                                            
+Echo.                                                                       
+Echo.                                                                              
+Echo.                                                                            
+Echo.                                                                           
+Echo.                                                                             
+Echo.                                                                          
+Echo.                                                                           
+Echo.                                                                          
+Echo.                                                                            
+Echo.                                                                                
+Echo.                                                                             
+Echo.                                                                            
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto main_interface
+
+:checkpage
+set viewingnote=false
+set /a page=%page%-1
+if "%page%"=="0" set page=
+goto realview%page%
+
+:menu
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgsel%%txsel% "  File  "&bg print %bgmen%%txmen% "  Edit    Format    View    Help  "
+Echo.
+bg print %bgmen%%txmen% " New note     "
+echo.
+bg print %bgmen%%txmen% " Load note    "
+Echo.
+bg print %bgmen%%txmen% " Save note    "
+Echo.
+bg print %bgmen%%txmen% " Exit         "
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto main_interface
+if %key% == 1x2 goto main_interface
+if %key% == 1x3 goto main_interface
+if %key% == 1x4 goto main_interface
+if %key% == 1x5 goto main_interface
+if %key% == 1x6 goto main_interface
+if %key% == 2x1 goto newnote
+if %key% == 2x2 goto newnote
+if %key% == 2x3 goto newnote
+if %key% == 2x4 goto newnote
+if %key% == 2x5 goto newnote
+if %key% == 2x6 goto newnote
+if %key% == 2x7 goto newnote
+if %key% == 2x8 goto newnote
+if %key% == 4x1 goto savenote
+if %key% == 4x2 goto savenote
+if %key% == 4x3 goto savenote
+if %key% == 4x4 goto savenote
+if %key% == 4x5 goto savenote
+if %key% == 4x6 goto savenote
+if %key% == 4x7 goto savenote
+if %key% == 4x8 goto savenote
+if %key% == 4x9 goto savenote
+if %key% == 3x1 goto loadnote
+if %key% == 3x2 goto loadnote
+if %key% == 3x3 goto loadnote
+if %key% == 3x4 goto loadnote
+if %key% == 3x5 goto loadnote
+if %key% == 3x6 goto loadnote
+if %key% == 3x7 goto loadnote
+if %key% == 3x8 goto loadnote
+if %key% == 3x9 goto loadnote
+if %key% == 5x1 goto exit
+if %key% == 5x2 goto exit
+if %key% == 5x3 goto exit
+if %key% == 5x4 goto exit
+goto menu
+
+:savenote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgsel%%txsel% "  File  "&bg print %bgmen%%txmen% "  Edit    Format    View    Help  "
+Echo.
+bg print %bgmen%%txmen% " New note     "
+echo.
+bg print %bgmen%%txmen% " Load note    "
+Echo.
+bg print %bgsel%%txsel% " Save note    "
+Echo.
+bg print %bgmen%%txmen% " Exit         "
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo.                
+bg print %bgmen%%txmen% "                                          "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% " Save as..                              "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "Enter file name:                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% "                                          "
+echo.
+echo %tab%%bck% 2>nul&set /p=<nul
+bg cursor 1
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo.                
+bg print %bgmen%%txmen% "                                          "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% " Save as..                              "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+set /p pathname=ÛEnter file name:
+bg cursor 0
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                "&bg print %txsel%%bgsel% "                "
+echo.
+bg print %bgmen%%txmen% "                                 "&bg print %txsel%%bgsel% " "&bg print %bg%%tx% "   Saving...  "&bg print %txsel%%bgsel% " "
+echo.
+bg print %bg%%tx% "                                 "&bg print %txsel%%bgsel% "                "
+echo.
+if exist %pathname%.cmd del %pathname%.cmd
+if not "%note1%"=="" @echo set note1=%note1%>>%pathname%.cmd
+if not "%note2%"=="" @echo set note2=%note2%>>%pathname%.cmd
+if not "%note3%"=="" @echo set note3=%note3%>>%pathname%.cmd
+if not "%note4%"=="" @echo set note4=%note4%>>%pathname%.cmd
+if not "%note5%"=="" @echo set note5=%note5%>>%pathname%.cmd
+if not "%note6%"=="" @echo set note6=%note6%>>%pathname%.cmd
+if not "%note7%"=="" @echo set note7=%note7%>>%pathname%.cmd
+if not "%note8%"=="" @echo set note8=%note8%>>%pathname%.cmd
+if not "%note9%"=="" @echo set note9=%note9%>>%pathname%.cmd
+if not "%note10%"=="" @echo set note10=%note10%>>%pathname%.cmd
+if not "%note11%"=="" @echo set note11=%note11%>>%pathname%.cmd
+if not "%note12%"=="" @echo set note12=%note12%>>%pathname%.cmd
+if not "%note13%"=="" @echo set note13=%note13%>>%pathname%.cmd
+if not "%note14%"=="" @echo set note14=%note14%>>%pathname%.cmd
+if not "%note15%"=="" @echo set note15=%note15%>>%pathname%.cmd
+if not "%note16%"=="" @echo set note16=%note16%>>%pathname%.cmd
+if not "%note17%"=="" @echo set note17=%note17%>>%pathname%.cmd
+if not "%note18%"=="" @echo set note18=%note18%>>%pathname%.cmd
+if not "%note19%"=="" @echo set note19=%note19%>>%pathname%.cmd
+if not "%note20%"=="" @echo set note20=%note20%>>%pathname%.cmd
+if not "%note21%"=="" @echo set note21=%note21%>>%pathname%.cmd
+if not "%note22%"=="" @echo set note22=%note22%>>%pathname%.cmd
+if not "%note23%"=="" @echo set note23=%note23%>>%pathname%.cmd
+if not "%note24%"=="" @echo set note24=%note24%>>%pathname%.cmd
+if not "%note25%"=="" @echo set note25=%note25%>>%pathname%.cmd
+if not "%note26%"=="" @echo set note26=%note26%>>%pathname%.cmd
+if not "%note27%"=="" @echo set note27=%note27%>>%pathname%.cmd
+if not "%note28%"=="" @echo set note28=%note28%>>%pathname%.cmd
+if not "%note29%"=="" @echo set note29=%note29%>>%pathname%.cmd
+if not "%note30%"=="" @echo set note30=%note30%>>%pathname%.cmd
+if not "%note31%"=="" @echo set note31=%note31%>>%pathname%.cmd
+if not "%note32%"=="" @echo set note32=%note32%>>%pathname%.cmd
+if not "%note33%"=="" @echo set note33=%note33%>>%pathname%.cmd
+if not "%note34%"=="" @echo set note34=%note34%>>%pathname%.cmd
+if not "%note35%"=="" @echo set note35=%note35%>>%pathname%.cmd
+if not "%note36%"=="" @echo set note36=%note36%>>%pathname%.cmd
+if not "%note37%"=="" @echo set note37=%note37%>>%pathname%.cmd
+if not "%note38%"=="" @echo set note38=%note38%>>%pathname%.cmd
+if not "%note39%"=="" @echo set note39=%note39%>>%pathname%.cmd
+if not "%note40%"=="" @echo set note40=%note40%>>%pathname%.cmd
+if not "%note41%"=="" @echo set note41=%note41%>>%pathname%.cmd
+if not "%note42%"=="" @echo set note42=%note42%>>%pathname%.cmd
+if not "%note43%"=="" @echo set note43=%note43%>>%pathname%.cmd
+if not "%note44%"=="" @echo set note44=%note44%>>%pathname%.cmd
+if not "%note45%"=="" @echo set note45=%note45%>>%pathname%.cmd
+if not "%note46%"=="" @echo set note46=%note46%>>%pathname%.cmd
+if not "%note47%"=="" @echo set note47=%note47%>>%pathname%.cmd
+if not "%note48%"=="" @echo set note48=%note48%>>%pathname%.cmd
+if not "%note49%"=="" @echo set note49=%note49%>>%pathname%.cmd
+if not "%note50%"=="" @echo set note50=%note50%>>%pathname%.cmd
+if not "%note51%"=="" @echo set note51=%note51%>>%pathname%.cmd
+if not "%note52%"=="" @echo set note52=%note52%>>%pathname%.cmd
+if not "%note53%"=="" @echo set note53=%note53%>>%pathname%.cmd
+if not "%note54%"=="" @echo set note54=%note54%>>%pathname%.cmd
+if not "%note55%"=="" @echo set note55=%note55%>>%pathname%.cmd
+if not "%note56%"=="" @echo set note56=%note56%>>%pathname%.cmd
+if not "%note57%"=="" @echo set note57=%note57%>>%pathname%.cmd
+if not "%note58%"=="" @echo set note58=%note58%>>%pathname%.cmd
+if not "%note59%"=="" @echo set note59=%note59%>>%pathname%.cmd
+if not "%note60%"=="" @echo set note60=%note60%>>%pathname%.cmd
+@echo set /a noteline=%noteline%+%noteline%-%noteline%>>%pathname%.cmd
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo.                
+bg print %bgmen%%txmen% "                                          "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% " Save as..                              "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "Enter file name:                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "Success                                 "&bg print %bgmen%%txmen% " "&bg print %bg%%tx% "       "   
+echo.
+bg print %bgmen%%txmen% "                                          "&bg print %bg%%tx% "       "
+echo.
+Echo.                                                 
+ping localhost -n 3 >nul
+goto main_interface
+
+:loadnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgsel%%txsel% "  File  "&bg print %bgmen%%txmen% "  Edit    Format    View    Help  "
+Echo.
+bg print %bgmen%%txmen% " New note     "
+echo.
+bg print %bgsel%%txsel% " Load note    "
+Echo.
+bg print %bgmen%%txmen% " Save note    "
+Echo.
+bg print %bgmen%%txmen% " Exit         "
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo.                
+bg print %bgmen%%txmen% "                                          "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% " Load..                                 "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "Enter file name:                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% "                                          "
+echo.
+bg cursor 1
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo.                
+bg print %bgmen%%txmen% "                                          "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% " Load..                                 "&bg print %bgmen%%txmen% " "
+echo.
+bg print %bgmen%%txmen% " "&bg print %bg%%tx% "                                        "&bg print %bgmen%%txmen% " "
+echo.
+set /p pathname=ÛEnter file name:
+if not exist %pathname%.cmd goto loadnote
+bg cursor 0
+set note1=
+set note2=
+set note3=
+set note4=
+set note5=
+set note6=
+set note7=
+set note8=
+set note9=
+set note10=
+set note11=
+set note12=
+set note13=
+set note14=
+set note15=
+set note16=
+set note17=
+set note18=
+set note19=
+set note20=
+set note21=
+set note22=
+set note23=
+set note24=
+set note25=
+set note26=
+set note27=
+set note28=
+set note29=
+set note30=
+set note31=
+set note32=
+set note33=
+set note34=
+set note35=
+set note36=
+set note37=
+set note38=
+set note39=
+set note40=
+set note41=
+set note42=
+set note43=
+set note44=
+set note45=
+set note46=
+set note47=
+set note48=
+set note49=
+set note50=
+set note51=
+set note52=
+set note53=
+set note54=
+set note55=
+set note56=
+set note57=
+set note58=
+set note59=
+set note60=
+set noteline=
+call %pathname%.cmd
+goto mousenote
+
+
+:menu2
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit  "&bg print %bgsel%%txsel% "  Format  "&bg print %bgmen%%txmen% "  View    Help  "
+Echo.
+bg print %bg%%tx% "                "& bg print %bgmen%%txmen% " Colors..    "
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x16 goto main_interface
+if %key% == 1x17 goto main_interface
+if %key% == 1x18 goto main_interface
+if %key% == 1x19 goto main_interface
+if %key% == 1x20 goto main_interface
+if %key% == 1x21 goto main_interface
+if %key% == 1x22 goto main_interface
+if %key% == 1x23 goto main_interface
+if %key% == 1x16 goto main_interface
+if %key% == 1x17 goto main_interface
+if %key% == 2x17 goto color_dialog
+if %key% == 2x18 goto color_dialog
+if %key% == 2x19 goto color_dialog
+if %key% == 2x20 goto color_dialog
+if %key% == 2x21 goto color_dialog
+if %key% == 2x22 goto color_dialog
+if %key% == 2x23 goto color_dialog
+if %key% == 2x24 goto color_dialog
+if %key% == 2x25 goto color_dialog
+goto menu2
+
+:menu3
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File  "&bg print %bgsel%%txsel% "  Edit  "&bg print %bgmen%%txmen% "  Format    View    Help  "
+Echo.
+bg print %bg%%tx% "        "&bg print %bgmen%%txmen% " Add Date and time..  "
+Echo.
+bg print %bg%%tx% "        "&bg print %bgmen%%txmen% " Change line          "
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x9 goto main_interface
+if %key% == 1x10 goto main_interface
+if %key% == 1x11 goto main_interface
+if %key% == 1x12 goto main_interface
+if %key% == 1x13 goto main_interface
+if %key% == 1x14 goto main_interface
+if %key% == 2x9 goto add_time
+if %key% == 2x10 goto add_time
+if %key% == 2x11 goto add_time
+if %key% == 2x12 goto add_time
+if %key% == 2x13 goto add_time
+if %key% == 2x14 goto add_time
+if %key% == 2x15 goto add_time
+if %key% == 2x16 goto add_time
+if %key% == 2x17 goto add_time
+if %key% == 2x18 goto add_time
+if %key% == 2x19 goto add_time
+if %key% == 2x20 goto add_time
+if %key% == 2x21 goto add_time
+if %key% == 2x22 goto add_time
+if %key% == 2x23 goto add_time
+if %key% == 2x24 goto add_time
+if %key% == 2x25 goto add_time
+if %key% == 2x26 goto add_time
+if %key% == 2x27 goto add_time
+if %key% == 3x9 goto edlin
+if %key% == 3x10 goto edlin
+if %key% == 3x11 goto edlin
+if %key% == 3x12 goto edlin
+if %key% == 3x13 goto edlin
+if %key% == 3x14 goto edlin
+if %key% == 3x15 goto edlin
+if %key% == 3x16 goto edlin
+if %key% == 3x17 goto edlin
+if %key% == 3x18 goto edlin
+if %key% == 3x19 goto edlin
+if %key% == 3x20 goto edlin
+goto menu3
+
+:menu4
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format   "&bg print %bgsel%%txsel% " View "& bg print %bgmen%%txmen% "   Help  "
+Echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " Edit note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " View note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " Start screen "
+echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x29 goto main_interface
+if %key% == 1x30 goto main_interface
+if %key% == 1x31 goto main_interface
+if %key% == 1x32 goto main_interface
+if %key% == 1x33 goto main_interface
+if %key% == 1x34 goto main_interface
+if %key% == 2x28 goto mousenote
+if %key% == 2x29 goto mousenote
+if %key% == 2x30 goto mousenote
+if %key% == 2x31 goto mousenote
+if %key% == 2x32 goto mousenote
+if %key% == 2x33 goto mousenote
+if %key% == 2x34 goto mousenote
+if %key% == 2x35 goto mousenote
+if %key% == 2x36 goto mousenote
+if %key% == 3x28 goto goview
+if %key% == 3x29 goto goview
+if %key% == 3x30 goto goview
+if %key% == 3x31 goto goview
+if %key% == 3x32 goto goview
+if %key% == 3x33 goto goview
+if %key% == 3x34 goto goview
+if %key% == 3x35 goto goview
+if %key% == 3x36 goto goview
+if %key% == 4x28 goto gostart
+if %key% == 4x29 goto gostart
+if %key% == 4x30 goto gostart
+if %key% == 4x31 goto gostart
+if %key% == 4x32 goto gostart
+if %key% == 4x33 goto gostart
+if %key% == 4x34 goto gostart
+if %key% == 4x35 goto gostart
+if %key% == 4x36 goto gostart
+if %key% == 4x37 goto gostart
+if %key% == 4x38 goto gostart
+if %key% == 4x39 goto gostart
+goto menu4
+
+:goedit
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format   "&bg print %bgsel%%txsel% " View "& bg print %bgmen%%txmen% "   Help  "
+Echo.
+bg print %bg%%tx% "                          "&bg print %bgsel%%txsel% " Edit note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " View note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " Start screen "
+echo.
+goto mousenote
+
+
+:menu5
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View   "&bg print %bgsel%%txsel% " Help "& bg print %bgmen%%txmen% " "
+Echo.
+bg.exe print %bg%%tx% "                                "&bg print %bgmen%%txmen% " Tutorial "    
+Echo.
+bg.exe print %bg%%tx% "                                "&bg print %bgmen%%txmen% " About..  "    
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x36 goto main_interface
+if %key% == 1x37 goto main_interface
+if %key% == 1x38 goto main_interface
+if %key% == 1x39 goto main_interface
+if %key% == 1x40 goto main_interface
+if %key% == 1x41 goto main_interface
+if %key% == 2x34 goto demo
+if %key% == 2x35 goto demo
+if %key% == 2x36 goto demo
+if %key% == 2x37 goto demo
+if %key% == 2x38 goto demo
+if %key% == 2x39 goto demo
+if %key% == 2x40 goto demo
+if %key% == 2x41 goto demo
+if %key% == 2x42 goto demo
+if %key% == 3x35 goto aboutnote
+if %key% == 3x36 goto aboutnote
+if %key% == 3x37 goto aboutnote
+if %key% == 3x38 goto aboutnote
+if %key% == 3x39 goto aboutnote
+if %key% == 3x40 goto aboutnote
+goto menu5
+
+:demo
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View   "&bg print %bgsel%%txsel% " Help "& bg print %bgmen%%txmen% " "
+Echo.
+bg.exe print %bg%%tx% "                                "&bg print %bgsel%%txsel% " Tutorial "    
+Echo.
+bg.exe print %bg%%tx% "                                "&bg print %bgmen%%txmen% " About..  "    
+Echo.
+set note1=
+set note2=
+set note3=
+set note4=
+set note5=
+set note6=
+set note7=
+set note8=
+set note9=
+set note10=
+set note11=
+set note12=
+set note13=
+set note14=
+set note15=
+set note16=
+set note17=
+set note18=
+set note19=
+set note20=
+set note21=
+set note22=
+set note23=
+set note24=
+set note25=
+set note26=
+set note27=
+set note28=
+set note29=
+set note30=
+set note31=
+set note32=
+set note33=
+set note34=
+set note35=
+set note36=
+set note37=
+set note38=
+set note39=
+set note40=
+set note41=
+set note42=
+set note43=
+set note44=
+set note45=
+set note46=
+set note47=
+set note48=
+set note49=
+set note50=
+set note51=
+set note52=
+set note53=
+set note54=
+set note55=
+set note56=
+set note57=
+set note58=
+set note59=
+set note60=
+set noteline=
+if "%viewingnote%"=="true" goto skiplol
+if not "%editingnote%"=="true" set demo=true
+:skiplol
+call demo.cmd
+goto realview
+
+:aboutnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View   "&bg print %bgsel%%txsel% " Help "& bg print %bgmen%%txmen% " "
+Echo.
+bg.exe print %bg%%tx% "                                "&bg print %bgmen%%txmen% " Tutorial "    
+Echo.
+bg.exe print %bg%%tx% "                                "&bg print %bgsel%%txsel% " About..  "    
+Echo.
+:aboutnote1
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                               
+Echo.                                                              
+bg print %txsel%%bgsel% "                                       "&bg print %bgmen%%txmen% "X"&bg print %txsel%%bgsel% "  "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "                                        "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "      Notepad with Graphical User       "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "              Interface                 "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "                                        "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "            Version 1.20                "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "       Created by Markus Maal           "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "                                        "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "             "&bg print %txsel%%bgsel% "          "&bg print %bg%%tx% "                 "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "             "&bg print %txsel%%bgsel% " "&bg print %bg%%tx% "   OK   "&bg print %txsel%%bgsel% " "&bg print %bg%%tx% "                 "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "             "&bg print %txsel%%bgsel% "          "&bg print %bg%%tx% "                 "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% " "&bg print %bg%%tx% "                                        "&bg print %txsel%%bgsel% " "
+echo.
+bg print %txsel%%bgsel% "                                          "
+echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 13x15 goto main_interface
+if %key% == 13x16 goto main_interface
+if %key% == 13x17 goto main_interface
+if %key% == 13x18 goto main_interface
+if %key% == 13x19 goto main_interface
+if %key% == 13x20 goto main_interface
+if %key% == 13x21 goto main_interface
+if %key% == 13x22 goto main_interface
+if %key% == 4x39 goto main_interface
+goto aboutnote1
+:add_time
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File  "&bg print %bgsel%%txsel% "  Edit  "&bg print %bgmen%%txmen% "  Format    View    Help  "
+Echo.
+bg print %bg%%tx% "        "&bg print %bgsel%%txsel% " Add Date and time..  "
+Echo.
+bg print %bg%%tx% "        "&bg print %bgmen%%txmen% " Change line          "
+set note%noteline%=%date% %time%
+goto mousenote
+
+:color_dialog
+color %bg%%tx%
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit  "&bg print %bgsel%%txsel% "  Format  "&bg print %bgmen%%txmen% "  View    Help  "
+Echo.
+bg print %bg%%tx% "                "& bg print %bgsel%%txsel% " Colors..    "
+:color_dialog_real
+if "%focus%"=="Menus " goto menu_color_dialog
+if "%focus%"=="Menus2" goto menu2_color_dialog
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                          
+Echo.
+bg print %txsel%%bgsel% "                               "&bg print %bgmen%%txmen% "X"&bg print %txsel%%bgsel% "  "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% "           Colors               "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Background          Text       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Black               Black      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Blue                Blue       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Green               Green      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Aqua                Aqua       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Red                 Red        "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Purple              Purple     "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Yellow              Yellow     "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " White               White      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Grey                Grey       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Focus: Main colors             "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% "                                  "
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 7x2 set bg=0&color %bg%%tx%
+if %key% == 7x3 set bg=0&color %bg%%tx%
+if %key% == 7x4 set bg=0&color %bg%%tx%
+if %key% == 7x5 set bg=0&color %bg%%tx%
+if %key% == 7x6 set bg=0&color %bg%%tx%
+if %key% == 8x2 set bg=1&color %bg%%tx%
+if %key% == 8x3 set bg=1&color %bg%%tx%
+if %key% == 8x4 set bg=1&color %bg%%tx%
+if %key% == 8x5 set bg=1&color %bg%%tx%
+if %key% == 9x2 set bg=2&color %bg%%tx%
+if %key% == 9x3 set bg=2&color %bg%%tx%
+if %key% == 9x4 set bg=2&color %bg%%tx%
+if %key% == 9x5 set bg=2&color %bg%%tx%
+if %key% == 9x6 set bg=2&color %bg%%tx%
+if %key% == 10x2 set bg=3&color %bg%%tx%
+if %key% == 10x3 set bg=3&color %bg%%tx%
+if %key% == 10x4 set bg=3&color %bg%%tx%
+if %key% == 10x5 set bg=3&color %bg%%tx%
+if %key% == 11x2 set bg=4&color %bg%%tx%
+if %key% == 11x3 set bg=4&color %bg%%tx%
+if %key% == 11x4 set bg=4&color %bg%%tx%
+if %key% == 12x2 set bg=5&color %bg%%tx%
+if %key% == 12x3 set bg=5&color %bg%%tx%
+if %key% == 12x4 set bg=5&color %bg%%tx%
+if %key% == 12x5 set bg=5&color %bg%%tx%
+if %key% == 12x6 set bg=5&color %bg%%tx%
+if %key% == 12x7 set bg=5&color %bg%%tx%
+if %key% == 13x2 set bg=6&color %bg%%tx%
+if %key% == 13x3 set bg=6&color %bg%%tx%
+if %key% == 13x4 set bg=6&color %bg%%tx%
+if %key% == 13x5 set bg=6&color %bg%%tx%
+if %key% == 13x6 set bg=6&color %bg%%tx%
+if %key% == 13x7 set bg=6&color %bg%%tx%
+if %key% == 14x2 set bg=7&color %bg%%tx%
+if %key% == 14x3 set bg=7&color %bg%%tx%
+if %key% == 14x4 set bg=7&color %bg%%tx%
+if %key% == 14x5 set bg=7&color %bg%%tx%
+if %key% == 14x6 set bg=7&color %bg%%tx%
+if %key% == 15x2 set bg=8&color %bg%%tx%
+if %key% == 15x3 set bg=8&color %bg%%tx%
+if %key% == 15x4 set bg=8&color %bg%%tx%
+if %key% == 15x5 set bg=8&color %bg%%tx%
+if %key% == 16x3 set focus=Menus 
+if %key% == 16x4 set focus=Menus 
+if %key% == 16x5 set focus=Menus 
+if %key% == 16x6 set focus=Menus 
+if %key% == 16x7 set focus=Menus 
+if %key% == 7x22 set tx=0&color %bg%%tx%
+if %key% == 7x23 set tx=0&color %bg%%tx%
+if %key% == 7x24 set tx=0&color %bg%%tx%
+if %key% == 7x25 set tx=0&color %bg%%tx%
+if %key% == 7x26 set tx=0&color %bg%%tx%
+if %key% == 8x22 set tx=1&color %bg%%tx%
+if %key% == 8x23 set tx=1&color %bg%%tx%
+if %key% == 8x24 set tx=1&color %bg%%tx%
+if %key% == 8x25 set tx=1&color %bg%%tx%
+if %key% == 9x22 set tx=2&color %bg%%tx%
+if %key% == 9x23 set tx=2&color %bg%%tx%
+if %key% == 9x24 set tx=2&color %bg%%tx%
+if %key% == 9x25 set tx=2&color %bg%%tx%
+if %key% == 9x26 set tx=2&color %bg%%tx%
+if %key% == 10x22 set tx=3&color %bg%%tx%
+if %key% == 10x23 set tx=3&color %bg%%tx%
+if %key% == 10x24 set tx=3&color %bg%%tx%
+if %key% == 10x25 set tx=3&color %bg%%tx%
+if %key% == 11x22 set tx=4&color %bg%%tx%
+if %key% == 11x23 set tx=4&color %bg%%tx%
+if %key% == 11x24 set tx=4&color %bg%%tx%
+if %key% == 12x22 set tx=5&color %bg%%tx%
+if %key% == 12x23 set tx=5&color %bg%%tx%
+if %key% == 12x24 set tx=5&color %bg%%tx%
+if %key% == 12x25 set tx=5&color %bg%%tx%
+if %key% == 12x26 set tx=5&color %bg%%tx%
+if %key% == 12x27 set tx=5&color %bg%%tx%
+if %key% == 13x22 set tx=6&color %bg%%tx%
+if %key% == 13x23 set tx=6&color %bg%%tx%
+if %key% == 13x24 set tx=6&color %bg%%tx%
+if %key% == 13x25 set tx=6&color %bg%%tx%
+if %key% == 13x26 set tx=6&color %bg%%tx%
+if %key% == 13x27 set tx=6&color %bg%%tx%
+if %key% == 14x22 set tx=7&color %bg%%tx%
+if %key% == 14x23 set tx=7&color %bg%%tx%
+if %key% == 14x24 set tx=7&color %bg%%tx%
+if %key% == 14x25 set tx=7&color %bg%%tx%
+if %key% == 14x26 set tx=7&color %bg%%tx%
+if %key% == 15x22 set tx=8&color %bg%%tx%
+if %key% == 15x23 set tx=8&color %bg%%tx%
+if %key% == 15x24 set tx=8&color %bg%%tx%
+if %key% == 15x25 set tx=8&color %bg%%tx%
+if %key% == 4x31 goto main_interface
+goto color_dialog_real
+
+:menu_color_dialog
+if "%focus%"=="Menus2" goto menu2_color_dialog
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                          
+Echo.
+bg print %txsel%%bgsel% "                               "&bg print %bgmen%%txmen% "X"&bg print %txsel%%bgsel% "  "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% "           Colors               "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Background          Text       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Black               Black      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Blue                Blue       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Green               Green      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Aqua                Aqua       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Red                 Red        "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Purple              Purple     "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Yellow              Yellow     "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " White               White      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Grey                Grey       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Focus: Menus                   "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% "                                  "
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 7x2 set bgmen=0
+if %key% == 7x3 set bgmen=0
+if %key% == 7x4 set bgmen=0
+if %key% == 7x5 set bgmen=0
+if %key% == 7x6 set bgmen=0
+if %key% == 8x2 set bgmen=1
+if %key% == 8x3 set bgmen=1
+if %key% == 8x4 set bgmen=1
+if %key% == 8x5 set bgmen=1
+if %key% == 9x2 set bgmen=2
+if %key% == 9x3 set bgmen=2
+if %key% == 9x4 set bgmen=2
+if %key% == 9x5 set bgmen=2
+if %key% == 9x6 set bgmen=2
+if %key% == 10x2 set bgmen=3
+if %key% == 10x3 set bgmen=3
+if %key% == 10x4 set bgmen=3
+if %key% == 10x5 set bgmen=3
+if %key% == 11x2 set bgmen=4
+if %key% == 11x3 set bgmen=4
+if %key% == 11x4 set bgmen=4
+if %key% == 12x2 set bgmen=5
+if %key% == 12x3 set bgmen=5
+if %key% == 12x4 set bgmen=5
+if %key% == 12x5 set bgmen=5
+if %key% == 12x6 set bgmen=5
+if %key% == 12x7 set bgmen=5
+if %key% == 13x2 set bgmen=6
+if %key% == 13x3 set bgmen=6
+if %key% == 13x4 set bgmen=6
+if %key% == 13x5 set bgmen=6
+if %key% == 13x6 set bgmen=6
+if %key% == 13x7 set bgmen=6
+if %key% == 14x2 set bgmen=7
+if %key% == 14x3 set bgmen=7
+if %key% == 14x4 set bgmen=7
+if %key% == 14x5 set bgmen=7
+if %key% == 14x6 set bgmen=7
+if %key% == 15x2 set bgmen=8
+if %key% == 15x3 set bgmen=8
+if %key% == 15x4 set bgmen=8
+if %key% == 15x5 set bgmen=8
+if %key% == 16x3 set focus=Menus2
+if %key% == 16x4 set focus=Menus2
+if %key% == 16x5 set focus=Menus2
+if %key% == 16x6 set focus=Menus2
+if %key% == 16x7 set focus=Menus2
+if %key% == 7x22 set txmen=0
+if %key% == 7x23 set txmen=0
+if %key% == 7x24 set txmen=0
+if %key% == 7x25 set txmen=0
+if %key% == 7x26 set txmen=0
+if %key% == 8x22 set txmen=1
+if %key% == 8x23 set txmen=1
+if %key% == 8x24 set txmen=1
+if %key% == 8x25 set txmen=1
+if %key% == 9x22 set txmen=2
+if %key% == 9x23 set txmen=2
+if %key% == 9x24 set txmen=2
+if %key% == 9x25 set txmen=2
+if %key% == 9x26 set txmen=2
+if %key% == 10x22 set txmen=3
+if %key% == 10x23 set txmen=3
+if %key% == 10x24 set txmen=3
+if %key% == 10x25 set txmen=3
+if %key% == 11x22 set txmen=4
+if %key% == 11x23 set txmen=4
+if %key% == 11x24 set txmen=4
+if %key% == 12x22 set txmen=5
+if %key% == 12x23 set txmen=5
+if %key% == 12x24 set txmen=5
+if %key% == 12x25 set txmen=5
+if %key% == 12x26 set txmen=5
+if %key% == 12x27 set txmen=5
+if %key% == 13x22 set txmen=6
+if %key% == 13x23 set txmen=6
+if %key% == 13x24 set txmen=6
+if %key% == 13x25 set txmen=6
+if %key% == 13x26 set txmen=6
+if %key% == 13x27 set txmen=6
+if %key% == 14x22 set txmen=7
+if %key% == 14x23 set txmen=7
+if %key% == 14x24 set txmen=7
+if %key% == 14x25 set txmen=7
+if %key% == 14x26 set txmen=7
+if %key% == 15x22 set txmen=8
+if %key% == 15x23 set txmen=8
+if %key% == 15x24 set txmen=8
+if %key% == 15x25 set txmen=8
+if %key% == 4x31 goto main_interface
+goto menu_color_dialog
+
+:menu2_color_dialog
+if "%focus%"=="Main" goto color_dialog
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                          
+Echo.
+bg print %txsel%%bgsel% "                               "&bg print %bgmen%%txmen% "X"&bg print %txsel%%bgsel% "  "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% "           Colors               "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Background          Text       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Black               Black      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Blue                Blue       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Green               Green      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Aqua                Aqua       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Red                 Red        "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Purple              Purple     "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Yellow              Yellow     "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " White               White      "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Grey                Grey       "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% " "& bg print %bg%%tx% " Focus: Selected items          "&bg print %txsel%%bgsel% " "
+Echo.
+bg print %txsel%%bgsel% "                                  "
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 7x2 set bgsel=0
+if %key% == 7x3 set bgsel=0
+if %key% == 7x4 set bgsel=0
+if %key% == 7x5 set bgsel=0
+if %key% == 7x6 set bgsel=0
+if %key% == 8x2 set bgsel=1
+if %key% == 8x3 set bgsel=1
+if %key% == 8x4 set bgsel=1
+if %key% == 8x5 set bgsel=1
+if %key% == 9x2 set bgsel=2
+if %key% == 9x3 set bgsel=2
+if %key% == 9x4 set bgsel=2
+if %key% == 9x5 set bgsel=2
+if %key% == 9x6 set bgsel=2
+if %key% == 10x2 set bgsel=3
+if %key% == 10x3 set bgsel=3
+if %key% == 10x4 set bgsel=3
+if %key% == 10x5 set bgsel=3
+if %key% == 11x2 set bgsel=4
+if %key% == 11x3 set bgsel=4
+if %key% == 11x4 set bgsel=4
+if %key% == 12x2 set bgsel=5
+if %key% == 12x3 set bgsel=5
+if %key% == 12x4 set bgsel=5
+if %key% == 12x5 set bgsel=5
+if %key% == 12x6 set bgsel=5
+if %key% == 12x7 set bgsel=5
+if %key% == 13x2 set bgsel=6
+if %key% == 13x3 set bgsel=6
+if %key% == 13x4 set bgsel=6
+if %key% == 13x5 set bgsel=6
+if %key% == 13x6 set bgsel=6
+if %key% == 13x7 set bgsel=6
+if %key% == 14x2 set bgsel=7
+if %key% == 14x3 set bgsel=7
+if %key% == 14x4 set bgsel=7
+if %key% == 14x5 set bgsel=7
+if %key% == 14x6 set bgsel=7
+if %key% == 15x2 set bgsel=8
+if %key% == 15x3 set bgsel=8
+if %key% == 15x4 set bgsel=8
+if %key% == 15x5 set bgsel=8
+if %key% == 16x3 set focus=Main
+if %key% == 16x4 set focus=Main
+if %key% == 16x5 set focus=Main
+if %key% == 16x6 set focus=Main
+if %key% == 16x7 set focus=Main
+if %key% == 7x22 set txsel=0
+if %key% == 7x23 set txsel=0
+if %key% == 7x24 set txsel=0
+if %key% == 7x25 set txsel=0
+if %key% == 7x26 set txsel=0
+if %key% == 8x22 set txsel=1
+if %key% == 8x23 set txsel=1
+if %key% == 8x24 set txsel=1
+if %key% == 8x25 set txsel=1
+if %key% == 9x22 set txsel=2
+if %key% == 9x23 set txsel=2
+if %key% == 9x24 set txsel=2
+if %key% == 9x25 set txsel=2
+if %key% == 9x26 set txsel=2
+if %key% == 10x22 set txsel=3
+if %key% == 10x23 set txsel=3
+if %key% == 10x24 set txsel=3
+if %key% == 10x25 set txsel=3
+if %key% == 11x22 set txsel=4
+if %key% == 11x23 set txsel=4
+if %key% == 11x24 set txsel=4
+if %key% == 12x22 set txsel=5
+if %key% == 12x23 set txsel=5
+if %key% == 12x24 set txsel=5
+if %key% == 12x25 set txsel=5
+if %key% == 12x26 set txsel=5
+if %key% == 12x27 set txsel=5
+if %key% == 13x22 set txsel=6
+if %key% == 13x23 set txsel=6
+if %key% == 13x24 set txsel=6
+if %key% == 13x25 set txsel=6
+if %key% == 13x26 set txsel=6
+if %key% == 13x27 set txsel=6
+if %key% == 14x22 set txsel=7
+if %key% == 14x23 set txsel=7
+if %key% == 14x24 set txsel=7
+if %key% == 14x25 set txsel=7
+if %key% == 14x26 set txsel=7
+if %key% == 15x22 set txsel=8
+if %key% == 15x23 set txsel=8
+if %key% == 15x24 set txsel=8
+if %key% == 15x25 set txsel=8
+if %key% == 4x31 goto main_interface
+goto menu2_color_dialog
+
+:note
+bg cursor 1
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. Type exit to enter mouse mode
+if exist notefile type %notefile%
+Echo.                                                                              
+Echo.ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+Echo.?                                                                            ?
+Echo.ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+Echo.                                                                              
+Echo. Line:%noteline%                                                                     
+Echo.                                                                              
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.
+Echo. Type exit to enter mouse mode
+Echo.                                                                              
+Echo.ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+set /p noted=?
+Echo.ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+if "%noted%"=="exit" goto mousenote
+set /a noteline=%noteline%+1
+set note%noteline%=%noted%
+set note=%noted%
+goto note
+
+
+:newnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgsel%%txsel% "  File  "&bg print %bgmen%%txmen% "  Edit    Format    View    Help  "
+Echo.
+bg print %bgsel%%txsel% " New note     "
+echo.
+bg print %bgmen%%txmen% " Load note    "
+Echo.
+bg print %bgmen%%txmen% " Save note    "
+Echo.
+bg print %bgmen%%txmen% " Exit         "
+Echo.
+set note1=
+set note2=
+set note3=
+set note4=
+set note5=
+set note6=
+set note7=
+set note8=
+set note9=
+set note10=
+set note11=
+set note12=
+set note13=
+set note14=
+set note15=
+set note16=
+set note17=
+set note18=
+set note19=
+set note20=
+set note21=
+set note22=
+set note23=
+set note24=
+set note25=
+set note26=
+set note27=
+set note28=
+set note29=
+set note30=
+set note31=
+set note32=
+set note33=
+set note34=
+set note35=
+set note36=
+set note37=
+set note38=
+set note39=
+set note40=
+set note41=
+set note42=
+set note43=
+set note44=
+set note45=
+set note46=
+set note47=
+set note48=
+set note49=
+set note50=
+set note51=
+set note52=
+set note53=
+set note54=
+set note55=
+set note56=
+set note57=
+set note58=
+set note59=
+set note60=
+set note=
+set noteline=
+set noted=
+goto mousenote
+:exit
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgsel%%txsel% "  File  "&bg print %bgmen%%txmen% "  Edit    Format    View    Help  "
+Echo.
+bg print %bgmen%%txmen% " New note     "
+echo.
+bg print %bgmen%%txmen% " Load note    "
+Echo.
+bg print %bgmen%%txmen% " Save note    "
+Echo.
+bg print %bgsel%%txsel% " Exit         "
+exit
+
+:mousenote
+if "%demo%"=="true" set demo=&goto main_interface
+set editingnote=true
+set viewingnote=false
+bg cursor 0
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back                             
+Echo.                                                                              
+Echo.ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+Echo.?                                                                            ?
+Echo.ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+Echo.                                                                              
+Echo. Line:%noteline%                                                                  
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto gostart_now
+if %key% == 3x2 goto gostart_now
+if %key% == 3x3 goto gostart_now
+if %key% == 3x4 goto gostart_now
+if %key% == 3x5 goto gostart_now
+if %key% == 3x6 goto gostart_now
+if %key% == 3x7 goto gostart_now
+if %key% == 3x8 goto gostart_now
+if %key% == 3x9 goto gostart_now
+if %key% == 9x6 goto edlin1
+if %key% == 3x10 goto gostart_now
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 6x1 goto note
+if %key% == 6x2 goto note
+if %key% == 6x3 goto note
+if %key% == 6x4 goto note
+if %key% == 6x5 goto note
+if %key% == 6x6 goto note
+if %key% == 6x7 goto note
+if %key% == 6x8 goto note
+if %key% == 6x9 goto note
+if %key% == 6x10 goto note
+if %key% == 6x11 goto note
+if %key% == 6x12 goto note
+if %key% == 6x13 goto note
+if %key% == 6x14 goto note
+if %key% == 6x15 goto note
+if %key% == 6x16 goto note
+if %key% == 6x17 goto note
+if %key% == 6x18 goto note
+if %key% == 6x19 goto note
+if %key% == 6x20 goto note
+if %key% == 6x21 goto note
+goto mousenote
+
+
+:goview
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format   "&bg print %bgsel%%txsel% " View "& bg print %bgmen%%txmen% "   Help  "
+Echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " Edit note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgsel%%txsel% " View note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " Start screen "
+echo.
+goto realview
+
+:edlin
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File  "&bg print %bgsel%%txsel% "  Edit  "&bg print %bgmen%%txmen% "  Format    View    Help  "
+Echo.
+bg print %bg%%tx% "        "&bg print %bgmen%%txmen% " Add Date and time..  "
+Echo.
+bg print %bg%%tx% "        "&bg print %bgsel%%txsel% " Change line          "
+:edlin1
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back                    
+Echo.                                                                              
+Echo.ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+Echo.?                                                                            ?
+Echo.ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+Echo.                                                                              
+Echo. Line:                                                                   
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back                    
+Echo.                                                                              
+Echo.ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+Echo.?                                                                            ?
+Echo.ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+Echo.                                                                              
+bg cursor 1
+set /p noteline=.Line:
+set /a noteline=%noteline%-1
+bg cursor 0
+goto mousenote
+
+:viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   Down  Up                                       
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+Echo.                                                                              
+goto :eof
+:realview
+set page=1
+if "%demo%"=="true" goto skipset
+set viewingnote=true
+:skipset
+call :viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   Down  XUp  Page:%page%
+Echo.                                                                              
+Echo.%note1%
+Echo.%note2%
+Echo.%note3%
+Echo.%note4%
+Echo.%note5%
+Echo.%note6%
+Echo.%note7%
+Echo.%note8%
+Echo.%note9%
+Echo.%note10%
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto mousenote
+if %key% == 3x2 goto mousenote
+if %key% == 3x3 goto mousenote
+if %key% == 3x4 goto mousenote
+if %key% == 3x5 goto mousenote
+if %key% == 3x6 goto mousenote
+if %key% == 3x7 goto mousenote
+if %key% == 3x8 goto mousenote
+if %key% == 3x9 goto mousenote
+if %key% == 3x15 goto realview1
+if %key% == 3x16 goto realview1
+if %key% == 3x17 goto realview1
+if %key% == 3x18 goto realview1
+if %key% == 3x10 goto mousenote
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto realview
+
+:realview1
+set page=2
+if "%demo%"=="true" goto skipset1
+set viewingnote=true
+:skipset1
+call :viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   Down  Up   Page:%page%
+Echo.                                                                              
+Echo.                                                                              
+Echo.%note11%
+Echo.%note12%
+Echo.%note13%
+Echo.%note14%
+Echo.%note15%
+Echo.%note16%
+Echo.%note17%
+Echo.%note18%
+Echo.%note19%
+Echo.%note20%
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto mousenote
+if %key% == 3x2 goto mousenote
+if %key% == 3x3 goto mousenote
+if %key% == 3x4 goto mousenote
+if %key% == 3x5 goto mousenote
+if %key% == 3x6 goto mousenote
+if %key% == 3x7 goto mousenote
+if %key% == 3x8 goto mousenote
+if %key% == 3x9 goto mousenote
+if %key% == 3x15 goto realview2
+if %key% == 3x16 goto realview2
+if %key% == 3x17 goto realview2
+if %key% == 3x18 goto realview2
+if %key% == 3x21 goto realview
+if %key% == 3x22 goto realview
+if %key% == 3x10 goto mousenote
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto realview1
+
+:realview2
+set page=3
+if "%demo%"=="true" goto skipset2
+set viewingnote=true
+:skipset2
+call :viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   Down  Up   Page:%page%
+Echo.                                                                              
+Echo.                                                                              
+Echo.%note21%
+Echo.%note22%
+Echo.%note23%
+Echo.%note24%
+Echo.%note25%
+Echo.%note26%
+Echo.%note27%
+Echo.%note28%
+Echo.%note29%
+Echo.%note30%
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto mousenote
+if %key% == 3x2 goto mousenote
+if %key% == 3x3 goto mousenote
+if %key% == 3x4 goto mousenote
+if %key% == 3x5 goto mousenote
+if %key% == 3x6 goto mousenote
+if %key% == 3x7 goto mousenote
+if %key% == 3x8 goto mousenote
+if %key% == 3x9 goto mousenote
+if %key% == 3x15 goto realview3
+if %key% == 3x16 goto realview3
+if %key% == 3x17 goto realview3
+if %key% == 3x18 goto realview3
+if %key% == 3x21 goto realview1
+if %key% == 3x22 goto realview1
+if %key% == 3x10 goto mousenote
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto realview2
+
+:realview3
+set page=4
+if "%demo%"=="true" goto skipset3
+set viewingnote=true
+:skipset3
+call :viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   Down  Up   Page:%page%
+Echo.                                                                              
+Echo.                                                                              
+Echo.%note31%
+Echo.%note32%
+Echo.%note33%
+Echo.%note34%
+Echo.%note35%
+Echo.%note36%
+Echo.%note37%
+Echo.%note38%
+Echo.%note39%
+Echo.%note40%
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto mousenote
+if %key% == 3x2 goto mousenote
+if %key% == 3x3 goto mousenote
+if %key% == 3x4 goto mousenote
+if %key% == 3x5 goto mousenote
+if %key% == 3x6 goto mousenote
+if %key% == 3x7 goto mousenote
+if %key% == 3x8 goto mousenote
+if %key% == 3x9 goto mousenote
+if %key% == 3x15 goto realview4
+if %key% == 3x16 goto realview4
+if %key% == 3x17 goto realview4
+if %key% == 3x18 goto realview4
+if %key% == 3x21 goto realview2
+if %key% == 3x22 goto realview2
+if %key% == 3x10 goto mousenote
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto realview3
+
+:realview4
+set page=5
+if "%demo%"=="true" goto skipset5
+set viewingnote=true
+:skipset5
+call :viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   Down  Up   Page:%page%
+Echo.                                                                              
+Echo.                                                                              
+Echo.%note41%
+Echo.%note42%
+Echo.%note43%
+Echo.%note44%
+Echo.%note45%
+Echo.%note46%
+Echo.%note47%
+Echo.%note48%
+Echo.%note49%
+Echo.%note50%
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto mousenote
+if %key% == 3x2 goto mousenote
+if %key% == 3x3 goto mousenote
+if %key% == 3x4 goto mousenote
+if %key% == 3x5 goto mousenote
+if %key% == 3x6 goto mousenote
+if %key% == 3x7 goto mousenote
+if %key% == 3x8 goto mousenote
+if %key% == 3x9 goto mousenote
+if %key% == 3x15 goto realview5
+if %key% == 3x16 goto realview5
+if %key% == 3x17 goto realview5
+if %key% == 3x18 goto realview5
+if %key% == 3x22 goto realview3
+if %key% == 3x23 goto realview3
+if %key% == 3x10 goto mousenote
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto realview4
+:realview5
+set page=6
+if "%demo%"=="true" goto skipset5
+set viewingnote=true
+:skipset5
+call :viewnote
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format    View    Help  "
+Echo.
+Echo.                                                                     
+Echo. ^<-- Go back   XDown Up   Page:%page%
+Echo.                                                                              
+Echo.                                                                              
+Echo.%note51%
+Echo.%note52%
+Echo.%note53%
+Echo.%note54%
+Echo.%note55%
+Echo.%note56%
+Echo.%note57%
+Echo.%note58%
+Echo.%note59%
+Echo.%note60%
+Echo.
+for /f "tokens=1- 3" %%a in ('bg.exe mouse') do set down=%%a&set top=%%b
+set key=%down%x%top%
+if %key% == 1x1 goto menu
+if %key% == 1x2 goto menu
+if %key% == 1x3 goto menu
+if %key% == 1x4 goto menu
+if %key% == 1x5 goto menu
+if %key% == 1x6 goto menu
+if %key% == 1x9 goto menu3
+if %key% == 1x10 goto menu3
+if %key% == 1x11 goto menu3
+if %key% == 1x12 goto menu3
+if %key% == 1x13 goto menu3
+if %key% == 1x14 goto menu3
+if %key% == 1x28 goto menu4
+if %key% == 1x29 goto menu4
+if %key% == 1x30 goto menu4
+if %key% == 1x31 goto menu4
+if %key% == 1x36 goto menu5
+if %key% == 1x37 goto menu5
+if %key% == 1x38 goto menu5
+if %key% == 1x39 goto menu5
+if %key% == 1x40 goto menu5
+if %key% == 1x41 goto menu5
+if %key% == 3x1 goto mousenote
+if %key% == 3x2 goto mousenote
+if %key% == 3x3 goto mousenote
+if %key% == 3x4 goto mousenote
+if %key% == 3x5 goto mousenote
+if %key% == 3x6 goto mousenote
+if %key% == 3x7 goto mousenote
+if %key% == 3x8 goto mousenote
+if %key% == 3x9 goto mousenote
+if %key% == 3x21 goto realview4
+if %key% == 3x22 goto realview4
+if %key% == 3x10 goto mousenote
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+if %key% == 1x18 goto menu2
+if %key% == 1x19 goto menu2
+if %key% == 1x20 goto menu2
+if %key% == 1x21 goto menu2
+if %key% == 1x22 goto menu2
+if %key% == 1x23 goto menu2
+if %key% == 1x16 goto menu2
+if %key% == 1x17 goto menu2
+goto realview5
+
+:gostart
+echo %tab%%bck% 2>nul&set /p=<nul
+Echo.                                                                     
+bg print %bgmen%%txmen% "  File    Edit    Format   "&bg print %bgsel%%txsel% " View "& bg print %bgmen%%txmen% "   Help  "
+Echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " Edit note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgmen%%txmen% " View note    "
+echo.
+bg print %bg%%tx% "                          "&bg print %bgsel%%txsel% " Start screen "
+echo.
+:gostart_now
+set noted=
+set editingnote=false
+set viewingnote=false
+goto main_interface

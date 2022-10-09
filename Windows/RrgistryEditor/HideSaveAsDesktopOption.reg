@@ -1,0 +1,4 @@
+Windows Registry Editor Version 6.00
+; Created by 00M
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag\ThisPCPolicy
+@="Hide"

