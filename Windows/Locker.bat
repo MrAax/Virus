@@ -1,6 +1,6 @@
 cls
 @ECHO OFF
-title Mansu locker
+title Mr.Aax locker
 mode con: cols=150 lines=40
 :A
 color a
